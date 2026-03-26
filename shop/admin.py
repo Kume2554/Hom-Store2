@@ -1,6 +1,10 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import Product
 
-admin.site.register(Product)
+# ลงทะเบียน Model Product ให้ขึ้นในหน้า Admin
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    # กำหนดให้หน้า List โชว์คอลัมน์อะไรบ้าง (ดูง่ายขึ้นเยอะ)
+    list_display = ('name', 'price', 'image')
+    # เพิ่มช่องค้นหาชื่อสินค้า
+    search_fields = ('name',)

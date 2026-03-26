@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>สั่งซื้อสำเร็จ</title>
+</head>
+<body class="bg-light d-flex align-items-center" style="height: 100vh;">
+    <div class="container text-center">
+        <div class="card shadow p-5 border-0 mx-auto" style="max-width: 500px;">
+            <h1 class="text-success display-1">✔️</h1>
+            <h2 class="fw-bold">สั่งซื้อสำเร็จ!</h2>
+            <p class="lead">ขอบคุณคุณ <strong>{{ fullname }}</strong></p>
+            <p class="text-muted">วิธีชำระเงิน: {{ payment }}</p>
+            <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg mt-3">กลับไปหน้าแรก</a>
+        </div>
+    </div>
+</body>
+</html>
