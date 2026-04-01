@@ -13,43 +13,67 @@
             <div class="row">
                 <div class="col-md-7">
                     <div class="card shadow border-0 p-4 mb-3">
-                        <h4 class="mb-3 text-primary">ที่อยู่จัดส่ง</h4>
+                        <h4 class="mb-3 text-primary fw-bold"><i class="fas fa-truck me-2"></i>ที่อยู่จัดส่ง</h4>
                         <input type="text" name="fullname" class="form-control mb-2" placeholder="ชื่อ-นามสกุล" required>
                         <input type="tel" name="phone" class="form-control mb-2" placeholder="เบอร์โทรศัพท์" required>
                         <textarea name="address" class="form-control" rows="3" placeholder="ที่อยู่..." required></textarea>
                     </div>
+
                     <div class="card shadow border-0 p-4">
-                        <h4 class="mb-3 text-primary">วิธีชำระเงิน</h4>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="radio" name="payment_method" value="โอนเงินผ่าน QR Code" id="qrp" checked onclick="toggleQR(true)">
-                            <label for="qrp">โอนเงินผ่าน QR Code (พร้อมเพย์)</label>
+                        <h4 class="mb-3 text-primary fw-bold"><i class="fas fa-credit-card me-2"></i>วิธีชำระเงิน</h4>
+                        
+                        <div class="form-check mb-2 p-2 border rounded">
+                            <input class="form-check-input ms-1" type="radio" name="payment_method" value="QR Code" id="qrp" checked onclick="togglePayment('qr')">
+                            <label class="ms-4" for="qrp">โอนเงินผ่าน QR Code</label>
                         </div>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="radio" name="payment_method" value="เก็บเงินปลายทาง" id="cod" onclick="toggleQR(false)">
-                            <label for="cod">เก็บเงินปลายทาง (COD)</label>
+                        
+                        <div class="form-check mb-2 p-2 border rounded">
+                            <input class="form-check-input ms-1" type="radio" name="payment_method" value="Credit Card" id="card" onclick="togglePayment('card')">
+                            <label class="ms-4" for="card">บัตรเครดิต / เดบิต</label>
                         </div>
+
+                        <div class="form-check mb-3 p-2 border rounded">
+                            <input class="form-check-input ms-1" type="radio" name="payment_method" value="COD" id="cod" onclick="togglePayment('cod')">
+                            <label class="ms-4" for="cod">เก็บเงินปลายทาง (COD)</label>
+                        </div>
+
                         <div id="qr_section" class="text-center p-3 border rounded bg-white">
                             <p class="text-danger fw-bold">สแกนเพื่อโอนเงิน</p>
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=0812345678" class="mb-3" style="max-width:200px;">
-                            <p class="small text-muted">ชื่อบัญชี: สมชาย ใจดี</p>
-                            <label class="form-label fw-bold">แนบสลิปยืนยัน</label>
+                            <label class="form-label d-block fw-bold">แนบสลิปยืนยัน</label>
                             <input type="file" name="slip_image" id="slip_input" class="form-control" accept="image/*" required>
+                        </div>
+
+                        <div id="card_section" class="p-3 border rounded bg-white" style="display:none;">
+                            <p class="fw-bold"><i class="fab fa-cc-visa text-primary"></i> ข้อมูลบัตรเครดิต</p>
+                            <input type="text" class="form-control mb-2" placeholder="หมายเลขบัตร 16 หลัก">
+                            <div class="row">
+                                <div class="col-6"><input type="text" class="form-control" placeholder="ดด/ปป"></div>
+                                <div class="col-6"><input type="text" class="form-control" placeholder="CVV"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-5">
-                    <div class="card shadow border-0 p-4 text-center">
-                        <h5>ยอดชำระ: <span class="text-success fw-bold">{{ total_price }} บาท</span></h5>
-                        <button type="submit" class="btn btn-primary btn-lg w-100 mt-3 fw-bold">ยืนยันการสั่งซื้อ</button>
+                    <div class="card shadow border-0 p-4 sticky-top text-center">
+                        <h4 class="mb-3">ยอดชำระ: <span class="text-success fw-bold">{{ total_price }} บาท</span></h4>
+                        <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow">ยืนยันคำสั่งซื้อ</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+
     <script>
-    function toggleQR(show) {
-        document.getElementById('qr_section').style.display = show ? 'block' : 'none';
-        document.getElementById('slip_input').required = show;
+    function togglePayment(type) {
+        const qr = document.getElementById('qr_section');
+        const card = document.getElementById('card_section');
+        const slip = document.getElementById('slip_input');
+        
+        qr.style.display = (type === 'qr') ? 'block' : 'none';
+        card.style.display = (type === 'card') ? 'block' : 'none';
+        slip.required = (type === 'qr');
     }
     </script>
 </body>

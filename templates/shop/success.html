@@ -7,13 +7,16 @@
 </head>
 <body class="bg-light d-flex align-items-center" style="height: 100vh;">
     <div class="container text-center">
-        <div class="card shadow p-5 border-0 mx-auto" style="max-width: 500px;">
-            <h1 class="text-success display-1">✔️</h1>
+        <div class="card shadow p-5 border-0 mx-auto" style="max-width: 500px; border-radius: 20px;">
+            <div class="mb-4 text-success" style="font-size: 80px;"><i class="fas fa-check-circle"></i></div>
             <h2 class="fw-bold">สั่งซื้อสำเร็จ!</h2>
             <p class="lead">ขอบคุณคุณ <strong>{{ fullname }}</strong></p>
-            <p class="text-muted">วิธีชำระเงิน: {{ payment }}</p>
-            <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg mt-3">กลับไปหน้าแรก</a>
+            <p class="text-muted">วิธีชำระเงิน: <strong>{{ payment }}</strong></p>
+            <hr>
+            <p class="small text-muted">เราได้รับข้อมูลแล้ว และจะรีบดำเนินการจัดส่งสินค้าให้คุณโดยเร็วที่สุด</p>
+            <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg mt-3 w-100">กลับไปหน้าหลัก</a>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
 </html>

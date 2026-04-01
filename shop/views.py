@@ -35,11 +35,17 @@ def cart_detail(request):
 def checkout(request):
     cart = request.session.get('cart', {})
     if not cart: return redirect('product_list')
-    total_price = sum(get_object_or_404(Product, id=p_id).price * qty for p_id, qty in cart.items())
+    
+    total_price = 0
+    for p_id, qty in cart.items():
+        product = get_object_or_404(Product, id=p_id)
+        total_price += product.price * qty
 
     if request.method == 'POST':
         fullname = request.POST.get('fullname')
         payment = request.POST.get('payment_method')
+        
+        # บันทึกข้อมูลการสั่งซื้อ
         Order.objects.create(
             user=request.user,
             fullname=fullname,
@@ -51,6 +57,7 @@ def checkout(request):
         )
         request.session['cart'] = {}
         return render(request, 'shop/success.html', {'fullname': fullname, 'payment': payment})
+
     return render(request, 'shop/checkout.html', {'total_price': total_price})
 
 def login_user(request):
